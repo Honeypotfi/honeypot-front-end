@@ -72,7 +72,7 @@ export const actions = {
     layout.$refs.connect.modalConnect = true
   },
   // getData({commit}) {
-  // },a
+  // },
 };
 
 export const getters = {
