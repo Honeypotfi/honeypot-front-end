@@ -489,8 +489,6 @@ img:not(.not_html, .not) {
   --ls: normal;
   --t: none;
   --f: none;
-  --ml: none;
-  --mr: none;
 
   color: var(--c);
   font-size: var(--fs, max(14px, 1em));
@@ -503,8 +501,11 @@ img:not(.not_html, .not) {
     line-height: var(--lh);
     color: var(--c);
   }
+  
+  // margin
   .v-btn__content {
     display: flex;
+    gap: var(--g, 5px);
   }
   
   &.v-btn--disabled {
