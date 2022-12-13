@@ -72,6 +72,7 @@ export default {
       const target = event.currentTarget;
       let offset = [0,0], isDown = false;
       
+      document.documentElement.style.overflow = "hidden"
       isDown = true;
       offset = [
         target.offsetTop - typeEvent(event).clientY
@@ -98,6 +99,7 @@ export default {
         window.ontouchend = null
         window.ontouchmove = null
         isDown = false
+        document.documentElement.style.overflow = "auto"
       }
       
       // desktop
