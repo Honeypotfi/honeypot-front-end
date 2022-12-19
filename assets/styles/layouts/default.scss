@@ -41,23 +41,23 @@
     }
   }
 
-  // #account-floating-button {
-  //   --w: max-content;
-  //   --h: 49px;
-  //   --br: 100px;
-  //   --bg: #1A1917;
-  //   --b: 1px solid #2D291D;
-  //   --c: #ffffff !important;
-  //   --fw: 700;
-  //   --fs: max(16px, 1em);
-  //   --g: 5px;
-  //   --p: 14px 16px;
-  //   font-family: var(--font2) !important;
-  //   position: fixed;
-  //   left: var(--margin-global);
-  //   bottom: 10%;
-  //   z-index: 10;
-  // }
+  #account-floating-button {
+    --w: max-content;
+    --h: 49px;
+    --br: 100px;
+    --bg: #1A1917;
+    --b: 1px solid #2D291D;
+    --c: #ffffff !important;
+    --fw: 700;
+    --fs: max(16px, 1em);
+    --g: 5px;
+    --p: 14px 16px;
+    font-family: var(--font2) !important;
+    position: fixed;
+    left: var(--margin-global);
+    bottom: 10%;
+    z-index: 10;
+  }
 }
 
 // #walletconnect-wrapper {

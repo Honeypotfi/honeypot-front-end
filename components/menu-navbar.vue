@@ -7,17 +7,21 @@
           <img src="~/assets/sources/logos/logo.svg" alt="logo" style="--w: 100%">
         </a>
         
-        <!-- <v-btn
-          v-if="!$parent.isLogged" :ripple="false"
-          class="btn" style="--w: 75%; --min-h: 30px; --p: .5em 2em"
-          @click="$store.dispatch('modalConnect')"
-        >Connect</v-btn>
-        
-        <v-menu v-else bottom offset-y nudge-bottom="10px">
+        <!-- connect button -->
+        <!-- <v-menu bottom offset-y nudge-bottom="10px">
           <template #activator="{ on, attrs }">
-            <v-btn class="btn2" style="--bg: var(--accent)" v-bind="attrs" v-on="on">
-              <span>{{$parent.user.accountId}}</span>
-              <v-icon>mdi-chevron-down</v-icon>
+            <v-btn
+              :class="$parent.isLogged ? 'btn2' : 'btn'"
+              :style="$parent.isLogged ? '--bg: var(--accent)' : '--w: 75%; --min-h: 30px; --p: .5em 2em'"
+              v-bind="$parent.isLogged ? attrs : ''"
+              v-on="$parent.isLogged ? on : ''"
+              @click="!$parent.isLogged ? $store.dispatch('modalConnect') : ''">
+              <template v-if="$parent.isLogged">
+                <span>{{$parent.user.accountId}}</span>
+                <v-icon>mdi-chevron-down</v-icon>
+              </template>
+              
+              <template v-else>Connect</template>
             </v-btn>
           </template>
 

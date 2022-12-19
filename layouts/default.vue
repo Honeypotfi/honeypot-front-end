@@ -6,20 +6,45 @@
     <ModalsSwapModal ref="swap" />
     
     <v-main :class="wrapperSpace?'with':'without'" class="parent">
+      <!-- floating swap button -->
       <v-btn
         v-show="!$route.path.includes('/swap')" id="swap-floating-button" class="btn" @click="$refs.swap.modalSwap = true"
-        @mousedown="dragFloatingBtn($event)" @touchstart="dragFloatingBtn($event)">
+        @mousedown="customeDragOnly($event)" @touchstart="customeDragOnly($event)">
         <v-icon>mdi-chevron-up</v-icon>
         <span>Swap</span>
       </v-btn>
 
-      <!-- <v-btn
-        v-if="isLogged" id="account-floating-button" class="btn"
-        @mousedown="dragFloatingBtn($event)" @touchstart="dragFloatingBtn($event)">
-        {{user.accountId}}
-        <v-icon>mdi-chevron-down</v-icon>
-      </v-btn> -->
+      <!-- connect button -->
+      <v-menu top offset-y>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            id="account-floating-button" class="btn showmobile"
+            v-bind="isLogged ? attrs : ''"
+            v-on="isLogged ? on : ''"
+            @mousedown="customeDragOnly($event, {dir: 'horizontal'})"
+            @touchstart="customeDragOnly($event, {dir: 'horizontal'})"
+            @click="!isLogged ? $store.dispatch('modalConnect') : ''">
+            <template v-if="isLogged">
+              {{user.accountId}}
+              <v-icon>mdi-chevron-down</v-icon>
+            </template>
+            
+            <template v-else>Connect wallet</template>
+          </v-btn>
+        </template>
 
+        <v-list class="font2" color="var(--secondary)" style="--c:#fff">
+          <v-list-item-group active-class="activeClass">
+            <v-list-item
+              v-for="(item,i) in dataMenuLogin" :key="i"
+              @click="item.key==='logout' ? $store.commit('signOut') : $router.push(localePath(key))">
+              <v-list-item-title>{{item.name}}</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
+
+      <!-- routes -->
       <nuxt-child />
     </v-main>
     <!-- <Footer ref="footer"></Footer> -->
@@ -27,11 +52,13 @@
 </template>
 
 <script>
-// import computeds from '~/mixins/computeds'
+import computeds from '~/mixins/computeds'
+import customeDrag from '~/mixins/customeDrag'
+import menuLogin from '~/mixins/menuLogin'
 
 export default {
   name: "DefaultLayout",
-  // mixins: [computeds],
+  mixins: [computeds, customeDrag, menuLogin],
   // middleware: ['authenticated'],
   data() {
     return {
@@ -78,47 +105,6 @@ export default {
     //     );
     //   }, 400);
     // },
-    dragFloatingBtn(event) {
-      const target = event.currentTarget;
-      let offset = [0,0], isDown = false;
-      
-      document.documentElement.style.overflow = "hidden"
-      isDown = true;
-      offset = [
-        target.offsetTop - typeEvent(event).clientY
-      ];
-      
-      function typeEvent(event) {
-        if (event.type.includes('mouse')) {
-          return event
-        } else if (event.type.includes('touch')) {
-          return event.touches[0]
-        }
-      }
-      
-      const onMove = (e) => {
-        const
-          position = typeEvent(e).clientY + offset[0],
-          range = 100;
-        if (e.type.includes('mouse')) e.preventDefault();
-        if (isDown && position > range && position < window.innerHeight - (range + 80)) target.style.top  = `${position}px`;
-      }
-      const removeHandlers = () => {
-        window.onmouseup = null
-        window.onmousemove = null
-        window.ontouchend = null
-        window.ontouchmove = null
-        isDown = false
-        document.documentElement.style.overflow = "auto"
-      }
-      
-      // desktop
-      window.onmouseup = () => removeHandlers()
-      window.onmousemove = e => onMove(e)
-      // mobile
-      window.ontouchend = () => removeHandlers()
-      window.ontouchmove = e => onMove(e)
-    }
   },
 }
 </script>

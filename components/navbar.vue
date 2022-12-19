@@ -29,14 +29,20 @@
           <span>${{user.balance}}</span>
         </v-btn>
 
-        <v-btn v-if="!isLogged" class="btn2" @click="$store.dispatch('modalConnect')">Connect wallet</v-btn>
-        
-        <!-- menu login -->
-        <v-menu v-else bottom offset-y nudge-bottom="10px">
+        <!-- connect button -->
+        <v-menu bottom offset-y nudge-bottom="10px">
           <template #activator="{ on, attrs }">
-            <v-btn class="btn2" v-bind="attrs" v-on="on">
-              <span>{{user.accountId}}</span>
-              <v-icon>mdi-chevron-down</v-icon>
+            <v-btn
+              class="btn2"
+              v-bind="isLogged ? attrs : ''"
+              v-on="isLogged ? on : ''"
+              @click="!isLogged ? $store.dispatch('modalConnect') : ''">
+              <template v-if="isLogged">
+                <span>{{user.accountId}}</span>
+                <v-icon>mdi-chevron-down</v-icon>
+              </template>
+              
+              <template v-else>Connect wallet</template>
             </v-btn>
           </template>
 
@@ -62,10 +68,11 @@
 
 <script>
 import computeds from '~/mixins/computeds'
+import menuLogin from '~/mixins/menuLogin'
 
 export default {
   name: "NavbarComponent",
-  mixins: [computeds],
+  mixins: [computeds, menuLogin],
   data() {
     return {
       dataNavbar: [
@@ -89,9 +96,6 @@ export default {
           name: "xhpot",
           to: "/staking"
         },
-      ],
-      dataMenuLogin: [
-        { key:"logout", name:"Log out" },
       ],
     };
   },
