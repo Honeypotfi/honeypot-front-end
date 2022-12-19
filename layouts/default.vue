@@ -13,6 +13,13 @@
         <span>Swap</span>
       </v-btn>
 
+      <!-- <v-btn
+        v-if="isLogged" id="account-floating-button" class="btn"
+        @mousedown="dragFloatingBtn($event)" @touchstart="dragFloatingBtn($event)">
+        {{user.accountId}}
+        <v-icon>mdi-chevron-down</v-icon>
+      </v-btn> -->
+
       <nuxt-child />
     </v-main>
     <!-- <Footer ref="footer"></Footer> -->
@@ -20,8 +27,11 @@
 </template>
 
 <script>
+// import computeds from '~/mixins/computeds'
+
 export default {
   name: "DefaultLayout",
+  // mixins: [computeds],
   // middleware: ['authenticated'],
   data() {
     return {

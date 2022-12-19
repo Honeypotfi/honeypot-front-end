@@ -7,13 +7,12 @@
           <img src="~/assets/sources/logos/logo.svg" alt="logo" style="--w: 100%">
         </a>
         
-        <v-btn
+        <!-- <v-btn
           v-if="!$parent.isLogged" :ripple="false"
           class="btn" style="--w: 75%; --min-h: 30px; --p: .5em 2em"
           @click="$store.dispatch('modalConnect')"
         >Connect</v-btn>
         
-        <!-- menu login -->
         <v-menu v-else bottom offset-y nudge-bottom="10px">
           <template #activator="{ on, attrs }">
             <v-btn class="btn2" style="--bg: var(--accent)" v-bind="attrs" v-on="on">
@@ -29,7 +28,7 @@
               <v-list-item-title>{{item.name}}</v-list-item-title>
             </v-list-item>
           </v-list>
-        </v-menu>
+        </v-menu> -->
       </template>
 
 

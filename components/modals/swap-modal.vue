@@ -7,7 +7,7 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
 
-      <h3 class="font2 tcenter" style="--fw: 700; --fs: 32px">Swap</h3>
+      <h3 class="font2 tcenter" style="--fw: 700; --fs: 2em">Swap</h3>
 
       <v-form class="swap-container divcol jspace" style="gap: 12px">
         <div class="fnowrap space" style="gap: inherit">
