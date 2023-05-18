@@ -1,4 +1,4 @@
-import webpack from 'webpack'
+// import { webpack } from 'webpack'
 import colors from 'vuetify/es5/util/colors'
 
 const development = process.env.NODE_ENV !== 'production'
@@ -166,6 +166,12 @@ export default {
   router: {
     base: development ? '/honeypot-dex/' : '/',
     // middleware: ['route-validator'],
+    extendRoutes(routes, resolve) {
+      routes.push({
+        path: '/',
+        component: resolve(__dirname, 'pages/swap.vue')
+      });
+    }
   },
 
   server: {
@@ -176,22 +182,22 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     publicPath: development ? '/honeypot-dex/' : '/',
-    plugins: [
-      new webpack.ProvidePlugin({
-        // global modules
-        configureWebpack:{
-          performance: {
-            hints: false
-          },
-          optimization: {
-            splitChunks: {
-              minSize: 10000,
-              maxSize: 500000,
-            }
-          }
-        },
-      }),
-    ],
+    // plugins: [
+    //   new webpack.ProvidePlugin({
+    //     // global modules
+    //     configureWebpack:{
+    //       performance: {
+    //         hints: false
+    //       },
+    //       optimization: {
+    //         splitChunks: {
+    //           minSize: 10000,
+    //           maxSize: 500000,
+    //         }
+    //       }
+    //     },
+    //   }),
+    // ],
     extend(config, ctx) {
       config.module.rules.push({
         exclude: /(node_modules)/,
